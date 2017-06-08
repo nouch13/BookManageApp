@@ -6,16 +6,26 @@ import android.os.Bundle
 import android.view.DragEvent
 import android.view.KeyEvent
 import android.view.Menu
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
     val home_address: String = "http://www.uec.ac.jp/"
 
-    @SuppressLint("SetJavaScriptEnabled")
+    // ボタンの定義
+    private val button_tohome: Button = findViewById(R.id.button_home) as Button
+    private val button_camera: Button = findViewById(R.id.button_cam) as Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setScreenMain() // 最初に，ブラウザを起動
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setScreenMain() {
         setContentView(R.layout.activity_main)
 
         // レイアウトで指定のWebViewIdを指定
@@ -28,6 +38,16 @@ class MainActivity : AppCompatActivity() {
         myWebView.settings?.javaScriptEnabled = true
         // ズームを有効化
         myWebView.settings?.builtInZoomControls = true
+
+        // ホームボタン
+        button_tohome.setOnClickListener {myWebView.loadUrl(home_address)}
+        // カメラ起動ボタン
+        button_camera.setOnClickListener {setScreenSub()}
+
+    }
+
+    private fun setScreenSub(){
+        // setContentView()
     }
 
 }
