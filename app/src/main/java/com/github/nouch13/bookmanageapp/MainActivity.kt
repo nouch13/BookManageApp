@@ -1,6 +1,7 @@
 package com.github.nouch13.bookmanageapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.DragEvent
@@ -13,11 +14,7 @@ import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
-    val home_address: String = "http://www.uec.ac.jp/"
-
-    // ボタンの定義
-    private val button_tohome: Button = findViewById(R.id.button_home) as Button
-    private val button_camera: Button = findViewById(R.id.button_cam) as Button
+    val home_address: String = "https://www.google.com/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +24,10 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     private fun setScreenMain() {
         setContentView(R.layout.activity_main)
+
+        // ボタンの定義
+        val button_tohome: Button = findViewById(R.id.button_home) as Button
+        val button_camera: Button = findViewById(R.id.button_cam) as Button
 
         // レイアウトで指定のWebViewIdを指定
         val myWebView: WebView = findViewById(R.id.webView1) as WebView
@@ -47,7 +48,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setScreenSub(){
-        // setContentView()
+        val intent: Intent = Intent(application, Read_QRCode::class.java)
+        startActivity(intent)
     }
 
 }
