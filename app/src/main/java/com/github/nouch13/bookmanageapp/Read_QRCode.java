@@ -47,6 +47,8 @@ public class Read_QRCode extends AppCompatActivity {
                     v.vibrate(200); // QR読み取り時にVibration
                     finish(); // QRを読んたので，ブラウザに戻る
                 }else{
+                    // ISBNコードが判るバーコードではない
+                    // 1段目のバーコードを読み取るようにして下さい
                     toastMake("This barcode doesn't have relation to isbn.",0,250);
                 }
             }
