@@ -33,6 +33,7 @@ public class Read_QRCode extends AppCompatActivity {
         final Pattern p = Pattern.compile(isbnParrtern);
 
         mBarcodeView = (CompoundBarcodeView)findViewById(R.id.barcodeView);
+
         mBarcodeView.decodeSingle(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult barcodeResult) {
