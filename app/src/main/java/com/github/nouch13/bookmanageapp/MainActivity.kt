@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.app.Activity
+import android.content.pm.PackageManager
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.DragEvent
@@ -14,19 +16,31 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import android.os.Vibrator
+import android.support.v4.app.ActivityCompat
+import android.widget.Toast
+import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
     val home_address: String = "http://192.168.88.29/books/"
+    val REQUSET_PERMISSION: Int = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setScreenMain() // 最初に，ブラウザを起動
+        setContentView(R.layout.activity_main)
+
+        // パーミッションのcheck
+        when{
+            Build.VERSION.SDK_INT >= 23 -> {
+                check_Permission()
+            }
+            else -> setScreenMain() // 最初に，ブラウザを起動
+        }
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setScreenMain() {
-        setContentView(R.layout.activity_main)
 
         // ボタンの定義
         val button_tohome: Button = findViewById(R.id.button_home) as Button
@@ -60,5 +74,35 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
+
+    private fun check_Permission(){
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+            setScreenMain() // ブラウザを起動
+        }else{
+            request_Permission()
+        }
+    }
+
+    private fun request_Permission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CAMERA)){
+            ActivityCompat.requestPermissions(this@MainActivity, arrayOf<String>(android.Manifest.permission.CAMERA), REQUSET_PERMISSION)
+        }else{
+            val toast: Toast = Toast.makeText(this, "Please give permission of camera.", Toast.LENGTH_SHORT)
+            toast.show()
+            ActivityCompat.requestPermissions(this, arrayOf<String>(android.Manifest.permission.CAMERA), REQUSET_PERMISSION)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        // super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            setScreenMain()
+            return
+        }else{
+            val toast: Toast = Toast.makeText(this, "Can't do everything! You should give permission of camera!!", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+    }
+
 
 }
