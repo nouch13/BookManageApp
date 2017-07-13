@@ -15,7 +15,7 @@ import android.webkit.WebViewClient
 import android.widget.Button
 import android.os.Vibrator
 
-class MainActivity : Activity() {
+class MainActivity : AppCompatActivity() {
 
     val home_address: String = "http://192.168.88.29/books/"
 
