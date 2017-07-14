@@ -17,6 +17,7 @@ import android.webkit.WebViewClient
 import android.widget.Button
 import android.os.Vibrator
 import android.support.v4.app.ActivityCompat
+import android.widget.ImageButton
 import android.widget.Toast
 import java.util.jar.Manifest
 
@@ -43,8 +44,10 @@ class MainActivity : AppCompatActivity() {
     private fun setScreenMain() {
 
         // ボタンの定義
-        val button_tohome: Button = findViewById(R.id.button_home) as Button
-        val button_camera: Button = findViewById(R.id.button_cam) as Button
+        val button_tohome: ImageButton = findViewById(R.id.button_home) as ImageButton
+        val button_camera: ImageButton = findViewById(R.id.button_cam) as ImageButton
+
+
 
         // レイアウトで指定のWebViewIdを指定
         val myWebView: WebView = findViewById(R.id.webView1) as WebView
